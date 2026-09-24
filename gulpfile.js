@@ -1,6 +1,6 @@
 const { src, dest, series, parallel, watch } = require('gulp');
 const { rm } = require('node:fs/promises');
-
+ const browserSync=require ('browser-sync').created();
 // Очищення папки збірки
 function clean() {
     return rm('dist', { recursive: true, force: true });
@@ -29,9 +29,14 @@ const build = series(
     clean,
     parallel(html, styles, scripts)
 );
-
 // Режим розробки зі спостереженням за файлами
 function dev() {
+    browserSync.init({
+        server:{
+            baseDir:"./dist"
+        }
+    } );
+    
     watch('src/app/**/*.html', html);
     watch('src/app/scss/**/*.scss', styles); // слідкує за змінами в scss
     watch('src/app/**/*.js', scripts);
@@ -39,4 +44,4 @@ function dev() {
 
 exports.build = build;
 exports.dev = dev;
-exports.default = build;
+exports.default = series(build,dev);
