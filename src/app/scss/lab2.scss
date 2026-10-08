@@ -1,0 +1,212 @@
+/* Кольорова гама та змінні */
+$dark-bg: #232a31;
+$blue-accent: #007bbd;
+$light-bg: #f4f6f8;
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #e2e8f0;
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
+
+/* Двоколонкова сітка резюме (CSS Grid) */
+.resume-container {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  max-width: 850px;
+  background: #ffffff;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
+}
+
+/* Шапка */
+.resume-header {
+  display: flex;
+  padding: 30px;
+  gap: 20px;
+
+  .profile-photo img {
+    width: 130px;
+    height: 150px;
+    object-fit: cover;
+    border: 3px solid $blue-accent;
+  }
+
+  .header-info {
+    h1 {
+      font-size: 24px;
+      color: #111;
+    }
+    .subtitle {
+      color: $blue-accent;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    .bio {
+      font-size: 12px;
+      color: #666;
+    }
+  }
+}
+
+/* Контакти (Верхня права панель) */
+.sidebar-top {
+  background-color: $dark-bg;
+  color: #fff;
+  padding: 30px 20px;
+
+  h2 {
+    font-size: 16px;
+    border-bottom: 2px solid #ffffff;
+    padding-bottom: 5px;
+    margin-bottom: 15px;
+  }
+
+  ul {
+    list-style: none;
+    li {
+      font-size: 12px;
+      margin-bottom: 10px;
+    }
+  }
+}
+
+/* Навички та Хобі (Сітка 2х2) */
+.skills-hobbies {
+  background-color: $dark-bg;
+  color: #fff;
+  padding: 20px 30px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+
+  h2 {
+    font-size: 14px;
+    border-bottom: 1px solid #555;
+    margin-bottom: 10px;
+  }
+
+  ul {
+    list-style: none;
+    li {
+      font-size: 11px;
+      margin-bottom: 8px;
+      display: flex;
+      flex-direction: column;
+
+      progress {
+        width: 100%;
+        height: 6px;
+        margin-top: 3px;
+      }
+    }
+  }
+}
+
+/* Мови */
+.languages-block {
+  background-color: $blue-accent;
+  color: #fff;
+  padding: 20px;
+
+  h2 {
+    font-size: 14px;
+    border-bottom: 1px solid #fff;
+    margin-bottom: 10px;
+  }
+
+  ul {
+    list-style: none;
+    li {
+      font-size: 11px;
+      margin-bottom: 8px;
+      display: flex;
+      flex-direction: column;
+
+      progress {
+        width: 100%;
+        height: 6px;
+        margin-top: 3px;
+      }
+    }
+  }
+}
+
+/* Досвід роботи */
+.main-experience {
+  padding: 30px;
+
+  h2 {
+    font-size: 16px;
+    border-bottom: 2px solid #ccc;
+    padding-bottom: 5px;
+    margin-bottom: 20px;
+  }
+
+  .job-item {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+
+    .badge {
+      background-color: $blue-accent;
+      color: #fff;
+      font-size: 10px;
+      padding: 4px 8px;
+      height: fit-content;
+      white-space: nowrap;
+    }
+
+    .job-details {
+      h3 { font-size: 13px; }
+      h4 { font-size: 11px; color: #666; }
+      p { font-size: 11px; color: #777; margin-top: 5px; }
+    }
+  }
+}
+
+/* Нижній блок справа (Рекомендації та Освіта) */
+.sidebar-bottom {
+  background-color: $dark-bg;
+  color: #fff;
+  padding: 30px 20px;
+
+  h2 {
+    font-size: 14px;
+    border-bottom: 1px solid #fff;
+    margin-bottom: 15px;
+  }
+
+  .ref-item {
+    font-size: 11px;
+    margin-bottom: 15px;
+    .address { color: $blue-accent; }
+  }
+
+  .edu-item {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+
+    .badge {
+      background-color: $blue-accent;
+      font-size: 9px;
+      padding: 2px 4px;
+      height: fit-content;
+    }
+
+    .edu-details {
+      font-size: 11px;
+      .univ { font-weight: bold; }
+      h3 { font-size: 12px; margin: 2px 0; }
+      p { color: #aaa; font-size: 10px; }
+    }
+  }
+}
