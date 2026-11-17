@@ -1,0 +1,72 @@
+@use 'variables' as v;
+@use 'mixins' as m;
+
+.contact {
+  @include m.panel(v.$dark);
+  border-top: 16px solid v.$white;
+  margin-top: 47px;
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    height: 47px;
+    background: v.$blue;
+    left: 0;
+    right: 0;
+    top: -63px;
+  }
+
+  address {
+    margin: 0;
+    font-size: 18px;
+    line-height: 1.35;
+    font-style: normal;
+  }
+
+  &__item {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    margin-bottom: 14px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  .contact__icon {
+    width: 30px;
+    height: 30px;
+    flex-basis: 30px;
+    flex-shrink: 0;
+    background: v.$blue;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: v.$white;
+
+    .icon {
+      width: 25px;  /* Фіксований нормальний розмір, щоб іконка не була мікроскопічною */
+      height: 25px;
+      display: block;
+      transform: translateX(3px);
+    }
+  }
+
+  a {
+    overflow-wrap: anywhere;
+  }
+}
+
+@include m.mobile {
+  .contact {
+    margin: 0;
+    border: 0;
+    padding: 32px;
+
+    &::before {
+      display: none;
+    }
+  }
+}

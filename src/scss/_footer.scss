@@ -1,0 +1,25 @@
+@use 'variables' as v;
+
+.page-footer {
+    height: 63px;
+
+    &__stripe {
+        height: 47px;
+        margin-top: 16px;
+        background: v.$blue;
+    }
+}
+
+.toolbar {
+    max-width: 1192px;
+    margin: 0 auto 32px;
+    padding: 0 20px;
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+
+    .btn-primary {
+        background-color: v.$blue;
+        border-color: v.$blue;
+    }
+}

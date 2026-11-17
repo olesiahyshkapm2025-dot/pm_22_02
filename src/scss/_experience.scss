@@ -1,0 +1,64 @@
+@use 'variables' as v;
+@use 'mixins' as m;
+
+.experience {
+  padding: 48px 46px 55px 0;
+
+  &__entry {
+    position: relative;
+    padding-left: 46px;
+    margin-bottom: 34px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  &__company {
+    font-size: 18px;
+    font-style: italic;
+    font-weight: 700;
+    margin: 0;
+  }
+
+  &__place {
+    font-size: 16px;
+    font-style: italic;
+    margin: 0 0 5px;
+    line-height: 1.1;
+  }
+
+  h3 {
+    font-size: 21px;
+    font-weight: 800;
+    margin-bottom: 9px;
+  }
+
+  &__description {
+    font-size: 15px;
+    line-height: 1.62;
+    text-align: justify;
+    margin: 0;
+  }
+
+  &__date {
+    position: absolute;
+    left: 0;
+    top: 0;
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    background: v.$blue;
+    color: v.$white;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 12px 4px;
+    min-height: 116px;
+    text-align: center;
+  }
+}
+
+@include m.mobile {
+  .experience {
+    padding: 40px 0;
+  }
+}

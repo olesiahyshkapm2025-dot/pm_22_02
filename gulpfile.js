@@ -1,62 +1,57 @@
-const { src, dest, watch, series } = require('gulp');
-const scss = require('gulp-sass')(require('sass'));
-const rename = require('gulp-rename');
-const browserSync = require('browser-sync').create();
+const gulp = require('gulp');
+const fileInclude = require('gulp-file-include');
+const { src, dest, series, parallel, watch } = require('gulp');
+const sass = require('gulp-sass')(require('sass'));
+const { rm } = require('node:fs/promises');
 
-// Завдання для стилів
+// Only generated output is removed. Source files are never modified.
+function clean() { return rm('dist', { recursive: true, force: true }); }
+
+function bootstrapCss() {
+  return src('node_modules/bootstrap/dist/css/*.min.css').pipe(dest('dist/css'));
+}
+
+function bootstrapJs() {
+  return src('node_modules/bootstrap/dist/js/*.min.js').pipe(dest('dist/js'));
+}
+
 function styles() {
-  return src('src/app/scss/main.scss', { allowEmpty: true })
-    .pipe(scss({ outputStyle: 'compressed' }))
-    .pipe(rename('index.min.css'))
-    .pipe(dest('dist/css'))
-    .pipe(browserSync.stream());
-}
-// Завдання для Bootstrap
-function copyBootstrap() {
-  return src([
-      'node_modules/bootstrap/dist/css/bootstrap.min.css',
-      'node_modules/bootstrap/dist/js/bootstrap.min.js'
-    ], { base: 'node_modules/bootstrap/dist' })
-    .pipe(dest('dist/bootstrap'));
+  return src('src/scss/main.scss')
+    .pipe(sass({ style: 'compressed' }))
+    .on('data', file => { file.basename = 'index.min.css'; })
+    .pipe(dest('dist/css'));
 }
 
-// Завдання для власних скриптів
-function scripts() {
-  return src('src/app/js/main.js')
-    .pipe(dest('dist/js'));
+// Функція обробки HTML із підтримкою інклудів (@@include)
+function html() { 
+  return src('src/*.html')
+    .pipe(fileInclude({
+      prefix: '@@',
+      basepath: '@file'
+    }))
+    .pipe(dest('dist')); 
 }
 
-// Завдання для копіювання HTML
-function copyHtml() {
-  return src('src/app/*.html')
-    .pipe(dest('dist'));
+function scripts() { return src('src/js/**/*.js').pipe(dest('dist/js')); }
+
+function assets() { return src('src/assets/**/*', { encoding: false }).pipe(dest('dist/assets')); }
+
+function bootstrapMaps() {
+  return src(['node_modules/bootstrap/dist/css/*.min.css.map', 'node_modules/bootstrap/dist/js/*.min.js.map'], { base: 'node_modules/bootstrap/dist' }).pipe(dest('dist'));
 }
 
-// Завдання для копіювання зображень
-function copyImages() {
-  return src('src/app/imgs/**/*', { encoding: false })
-    .pipe(dest('dist/imgs'));
+function observe() {
+  watch('src/scss/**/*.scss', styles);
+  watch('src/*.html', html);
+  watch('src/js/**/*.js', scripts);
+  watch('src/assets/**/*', assets);
 }
 
-// Завдання для спостереження
-function watching() {
-  browserSync.init({
-    server: {
-      baseDir: 'dist',
-    },
-  });
-  watch(['src/app/scss/**/*.scss'], styles);
-  watch(['src/app/js/**/*.js'], scripts).on('change', browserSync.reload);
-  watch(['src/app/*.html'], copyHtml).on('change', browserSync.reload);
-  watch(['src/app/imgs/**/*'], copyImages).on('change', browserSync.reload);
-}
+const build = series(clean, parallel(bootstrapCss, bootstrapJs, bootstrapMaps, styles, html, scripts, assets));
 
-// Головне завдання для запуску
-exports.default = series(
-  copyBootstrap, 
-  styles, 
-  scripts, 
-  copyHtml, 
-  copyImages, 
-  watching
-);
+exports['bootstrap:css'] = bootstrapCss;
+exports['bootstrap:js'] = bootstrapJs;
+exports.styles = styles;
+exports.build = build;
+exports.dev = series(build, observe);
+exports.default = build;

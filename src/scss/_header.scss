@@ -1,0 +1,77 @@
+@use 'variables' as v;
+@use 'mixins' as m;
+
+.profile {
+  display: flex;
+  gap: 44px;
+  padding: 62px 46px 46px 0;
+  align-items: flex-start;
+
+  &__photo {
+    width: 234px;
+    height: 282px;
+    object-fit: cover;
+    object-position: center 30%;
+    border: 9px solid v.$blue;
+    flex-shrink: 0;
+  }
+
+  &__name {
+    font-size: 54px;
+    line-height: 1.02;
+    text-transform: uppercase;
+    font-weight: 300;
+    margin: -6px 0 6px;
+
+    strong {
+      font-weight: 800;
+    }
+  }
+
+  &__role {
+    color: v.$blue;
+    font-size: 20px;
+    font-style: italic;
+    letter-spacing: 1.5px;
+    margin-bottom: 22px;
+  }
+
+  &__summary {
+    font-size: 18px;
+    line-height: 1.48;
+    text-align: justify;
+    margin: 0;
+  }
+}
+
+@include m.mobile {
+  .profile {
+    padding: 38px 0;
+    gap: 30px;
+
+    &__name {
+      font-size: 44px;
+    }
+
+    &__photo {
+      width: 200px;
+      height: 250px;
+    }
+  }
+}
+
+@media (max-width: 575.98px) {
+  .profile {
+    flex-direction: column;
+    gap: 26px;
+
+    &__photo {
+      width: 180px;
+      height: 220px;
+    }
+
+    &__name {
+      font-size: 42px;
+    }
+  }
+}

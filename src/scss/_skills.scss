@@ -1,0 +1,170 @@
+@use 'variables' as v;
+@use 'mixins' as m;
+
+.section-title {
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+  font-weight: 700;
+  text-transform: uppercase;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background-color: v.$white;
+  }
+
+  .icon {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    width: 30px !important;
+    height: 30px !important;
+    min-width: 30px !important;
+    min-height: 30px !important;
+    background-color: v.$blue;
+    color: v.$white;
+    padding: 0; /* Прибираємо відступ, щоб іконка стала максимально великою */
+    margin-right: 12px;
+    flex-shrink: 0;
+    box-sizing: border-box;
+
+    svg {
+      width: 100% !important;
+      height: 100% !important;
+      fill: currentColor;
+    }
+  }
+}
+
+.competencies {
+  position: relative;
+  background: v.$dark;
+  color: v.$white;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0 -64px;
+    background: v.$dark;
+    z-index: 0;
+  }
+
+  >* {
+    position: relative;
+  }
+}
+
+.abilities {
+  padding: 38px 46px 40px 0;
+}
+
+.skill-group {
+  &:first-child {
+    padding-right: 23px;
+  }
+
+  &:last-child {
+    padding-left: 23px;
+  }
+}
+
+.rating-list {
+  margin: 0;
+
+  li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 20px;
+    font-size: 13px;
+    font-weight: 700;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  .progress {
+    width: 43%;
+    height: 5px;
+    border-radius: 0;
+    background: #ffffff20;
+    overflow: visible;
+    flex-shrink: 0;
+  }
+
+  .progress-bar {
+    background: v.$blue;
+    position: relative;
+    overflow: visible;
+
+    &::after {
+      content: '';
+      width: 9px;
+      height: 9px;
+      background: inherit;
+      position: absolute;
+      right: 0;
+      top: -2px;
+    }
+  }
+}
+
+.languages {
+  @include m.panel(v.$blue);
+  padding-top: 38px;
+  padding-bottom: 40px;
+
+  .icon {
+    background: v.$dark;
+  }
+
+  .progress-bar {
+    background: v.$dark;
+  }
+
+  .rating-list li {
+    font-size: 14px;
+  }
+
+  .progress {
+    width: 51%;
+  }
+}
+
+@include m.mobile {
+  .competencies::before {
+    inset: 0 -28px;
+  }
+
+  .abilities {
+    padding: 32px 0;
+  }
+
+  .languages {
+    padding: 32px;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .competencies::before {
+    inset: 0 -20px;
+  }
+
+  .skill-group:first-child,
+  .skill-group:last-child {
+    padding: 0;
+  }
+
+  .skill-group+.skill-group {
+    margin-top: 36px;
+  }
+}

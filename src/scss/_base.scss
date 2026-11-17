@@ -1,0 +1,30 @@
+@use 'variables' as v;
+@use 'mixins' as m;
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: v.$muted;
+  font-family: v.$font;
+  color: v.$dark;
+}
+.icon {
+  width: 16px;
+  height: 16px;
+  min-width: 16px;
+  min-height: 16px;
+  margin-right: 8px;
+  display: inline-block;
+  vertical-align: middle;
+  flex-shrink: 0;
+}
+.resume {
+  max-width: 1192px - 20px;
+  padding: 0 (60px + 4px);  
+  margin: 70px auto 35px;
+  background: v.$white;
+  box-shadow: 0 25px 35px v.$shadow-color;
+}

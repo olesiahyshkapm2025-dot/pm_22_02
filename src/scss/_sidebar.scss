@@ -1,0 +1,86 @@
+@use 'variables' as v;
+@use 'mixins' as m;
+
+.sidebar {
+  @include m.panel(v.$dark);
+  padding-top: 48px;
+  padding-bottom: 40px;
+
+  .reference {
+    margin-bottom: 32px;
+
+    h3 {
+      font-size: 20px;
+      font-weight: 800;
+      margin-bottom: 4px;
+    }
+
+    p {
+      font-size: 17px;
+      line-height: 1.55;
+      margin: 0;
+      overflow-wrap: anywhere;
+    }
+
+    &__address {
+      color: v.$reference-address-color; // Винесено у змінну (або використай v.$blue, якщо вони збігаються)
+      font-weight: 700;
+      font-style: italic;
+    }
+  }
+
+  .education {
+    margin-top: 44px;
+
+    &__entry {
+      position: relative;
+      padding-left: 46px;
+      margin-bottom: 32px;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+
+    &__school {
+      font-size: 18px;
+      line-height: 1.2;
+      font-style: italic;
+      font-weight: 700;
+      margin: 0 0 4px;
+    }
+
+    h3 {
+      font-size: 20px;
+      font-weight: 800;
+      margin-bottom: 12px;
+    }
+
+    &__description {
+      font-size: 15px;
+      line-height: 1.5;
+      text-align: justify;
+      margin: 0;
+    }
+
+    &__date {
+      position: absolute;
+      top: 0;
+      left: 0;
+      writing-mode: vertical-rl;
+      transform: rotate(180deg);
+      background: v.$blue;
+      font-size: 12px;
+      font-weight: bold;
+      padding: 13px 4px;
+      min-height: 118px;
+      text-align: center;
+    }
+  }
+}
+
+@include m.mobile {
+  .sidebar {
+    padding: 32px;
+  }
+}
