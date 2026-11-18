@@ -168,3 +168,10 @@
     margin-top: 36px;
   }
 }
+.is-hidden {
+  display: none !important;
+}
+
+.toggle-arrow.rotated {
+  transform: rotate(-180deg);
+}
