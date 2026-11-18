@@ -30,7 +30,7 @@
     min-height: 30px !important;
     background-color: v.$blue;
     color: v.$white;
-    padding: 0; /* Прибираємо відступ, щоб іконка стала максимально великою */
+    padding: 0; 
     margin-right: 12px;
     flex-shrink: 0;
     box-sizing: border-box;
@@ -168,10 +168,21 @@
     margin-top: 36px;
   }
 }
-.is-hidden {
-  display: none !important;
+
+// Стилі для кнопок-стрілок згортання та приховування блоків
+.toggle-arrow {
+  background: none;
+  border: none;
+  color: v.$white;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+
+  &.rotated {
+    transform: rotate(-180deg);
+  }
 }
 
-.toggle-arrow.rotated {
-  transform: rotate(-180deg);
+.is-hidden {
+  display: none !important;
 }

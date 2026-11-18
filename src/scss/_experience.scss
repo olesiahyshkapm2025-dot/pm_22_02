@@ -57,6 +57,52 @@
   }
 }
 
+// === ДОДАТКОВІ ПРАВИЛА ДЛЯ ОСВІТИ ТА РЕКОМЕНДАЦІЙ (щоб прибрати інлайн-стилі з HTML) ===
+
+// Стилі для секції освіти (за аналогією до досвіду)
+.education {
+  padding-top: 20px;
+  
+  &__entry {
+    margin-bottom: 24px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  &__school {
+    font-size: 18px;
+    font-style: italic;
+    font-weight: 700;
+    margin: 0;
+  }
+
+  h3 {
+    font-size: 21px;
+    font-weight: 800;
+    margin-bottom: 9px;
+  }
+
+  &__description {
+    font-size: 15px;
+    line-height: 1.62;
+    margin: 0;
+  }
+}
+
+// Стилі для сайдбара (Рекомендації, де темний фон і білий текст)
+.sidebar {
+  .reference {
+    color: v.$white; // Замість style="color: #ffffff;" в HTML
+    
+    &__address {
+      font-style: italic;
+      margin-bottom: 8px;
+    }
+  }
+}
+
 @include m.mobile {
   .experience {
     padding: 40px 0;
