@@ -1,12 +1,11 @@
 'use strict';
 
-// Кнопка друку з попередньої роботи
 const printBtn = document.querySelector('[data-print]');
 if (printBtn) {
   printBtn.addEventListener('click', () => window.print());
 }
 
-// 1. Функція підстановки повного імені користувача за id (без вставлення HTML)
+// 1. Функція підстановки повного імені користувача за id 
 function setPersonName(elementId, fullName) {
   const nameElement = document.getElementById(elementId);
   if (nameElement) {
