@@ -1,0 +1,13 @@
+{
+  "person": {
+    "firstName": "Henry L.",
+    "lastName": "Williams"
+  },
+  "skills": [
+    { "name": "Adobe Photoshop", "level": 80 },
+    { "name": "Adobe Illustrator", "level": 75 },
+    { "name": "Microsoft Word", "level": 65 },
+    { "name": "Microsoft Powerpoint", "level": 70 },
+    { "name": "HTML-5/CSS-3", "level": 75 }
+  ]
+}

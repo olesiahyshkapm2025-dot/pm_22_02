@@ -36,6 +36,8 @@ function scripts() { return src('src/js/**/*.js').pipe(dest('dist/js')); }
 
 function assets() { return src('src/assets/**/*', { encoding: false }).pipe(dest('dist/assets')); }
 
+function data() { return src('src/data.json').pipe(dest('dist')); }
+
 function bootstrapMaps() {
   return src(['node_modules/bootstrap/dist/css/*.min.css.map', 'node_modules/bootstrap/dist/js/*.min.js.map'], { base: 'node_modules/bootstrap/dist' }).pipe(dest('dist'));
 }
@@ -45,13 +47,15 @@ function observe() {
   watch('src/*.html', html);
   watch('src/js/**/*.js', scripts);
   watch('src/assets/**/*', assets);
+  watch('src/data.json', data);
 }
 
-const build = series(clean, parallel(bootstrapCss, bootstrapJs, bootstrapMaps, styles, html, scripts, assets));
+const build = series(clean, parallel(bootstrapCss, bootstrapJs, bootstrapMaps, styles, html, scripts, assets, data));
 
 exports['bootstrap:css'] = bootstrapCss;
 exports['bootstrap:js'] = bootstrapJs;
 exports.styles = styles;
+exports.data = data;
 exports.build = build;
 exports.dev = series(build, observe);
 exports.default = build;

@@ -5,7 +5,7 @@ if (printBtn) {
   printBtn.addEventListener('click', () => window.print());
 }
 
-// 1. Функція підстановки повного імені користувача за id 
+// 1. Функція підстановки повного імені користувача за id
 function setPersonName(elementId, fullName) {
   const nameElement = document.getElementById(elementId);
   if (nameElement) {
@@ -30,18 +30,10 @@ function initBlockToggles() {
   });
 }
 
-// 3. Масив даних навичок та функція динамічного рендеру з попереднім очищенням
-const skillsData = [
-  { name: 'Adobe Photoshop', level: 85 },
-  { name: 'Adobe Illustrator', level: 80 },
-  { name: 'Microsoft Word', level: 90 },
-  { name: 'Microsoft Powerpoint', level: 75 },
-  { name: 'HTML-5/CSS-3', level: 95 }
-];
-
+// 3. Функція динамічного рендеру навичок з попереднім очищенням контейнера
 function renderSkills(containerId, items) {
   const container = document.getElementById(containerId);
-  if (!container) return;
+  if (!container || !Array.isArray(items)) return;
 
   // Очищення вмісту контейнера перед вставленням
   container.innerHTML = '';
@@ -58,9 +50,53 @@ function renderSkills(containerId, items) {
   });
 }
 
-// Виклик усіх функцій після завантаження документа
+// Коротке службове повідомлення у разі помилки завантаження даних
+function showServiceMessage(containerId, message) {
+  const container = document.getElementById(containerId);
+  if (container) {
+    container.innerHTML = `<li class="load-error">${message}</li>`;
+  }
+}
+
+// Асинхронне завантаження JSON через Fetch API з резервними шляхами для сервера/збірки
+async function fetchJsonData(paths) {
+  for (const path of paths) {
+    try {
+      const response = await fetch(path);
+      if (response.ok) {
+        return await response.json();
+      }
+    } catch (_) {
+      // Перевіряємо наступний шлях
+    }
+  }
+  throw new Error('Не вдалося завантажити data.json');
+}
+
+async function loadLab5Data() {
+  try {
+    const data = await fetchJsonData(['data.json', './data.json', 'src/data.json']);
+
+    if (data.person) {
+      const firstName = data.person.firstName || '';
+      const lastName = data.person.lastName || '';
+      setPersonName('personName', `${firstName} ${lastName}`.trim());
+    }
+
+    if (data.skills) {
+      renderSkills('skills-content', data.skills);
+    }
+  } catch (error) {
+    console.error('AJAX error:', error);
+    showServiceMessage(
+      'skills-content',
+      'Помилка завантаження даних. Запустіть сторінку через локальний сервер.'
+    );
+  }
+}
+
+// Виклик функцій після завантаження документа
 document.addEventListener('DOMContentLoaded', () => {
-  setPersonName('personName', 'Henry L. Williams');
   initBlockToggles();
-  renderSkills('skills-content', skillsData);
+  loadLab5Data();
 });
